@@ -1,0 +1,39 @@
+---
+title: "Data Manipulation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyr)
+library(readxl)
+library(xlsx)
+```
+Loading the clean excel file from python for R manipulation
+
+```{r}
+data <- read_xlsx("C:/Users/joelj/Desktop/Flipt/r_test.xlsx")
+head(data)
+
+```
+
+Using he gather function to tidy the data for analysis in Tableau
+```{r}
+
+gather_data <- gather(data = data, key = "Type", value = "Cost", retail_generic:mail_specialty)
+head(gather_data)
+```
+Removing the total cost column for analysis in Tableau 
+```{r}
+gather_data_final <- gather_data[,-5] 
+head(gather_data_final)
+```
+Exporting the file as excel to be leaded in Tableau
+```{r}
+write.csv(gather_data_final, "gather_data_final1.csv")
+
+```
+
